@@ -1,0 +1,13 @@
+version: '4'
+
+services:
+  db:
+    image: postgres:10
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: account4321
+      POSTGRES_DB: account-service
+    volumes:
+      - ./docker/sql/create_schema.sql:/docker-entrypoint-initdb.d/create_schema.sql
