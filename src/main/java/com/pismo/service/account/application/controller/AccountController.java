@@ -5,6 +5,8 @@ import com.pismo.service.account.application.dto.AccountRequestDTO;
 import com.pismo.service.account.application.dto.AccountResponseDTO;
 import com.pismo.service.account.domain.entities.Account;
 import com.pismo.service.account.domain.service.AccountService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,8 @@ public class AccountController {
     @Autowired
     private AccountAdapter accountAdapter;
 
+    @Operation(summary = "Save account", description = "Saves a new account")
+    @ApiResponse(responseCode = "200", description = "success")
     @PostMapping
     public ResponseEntity<AccountResponseDTO> save(@RequestBody AccountRequestDTO accountDTO) {
         Account account = accountAdapter.toDomain(accountDTO);
@@ -26,6 +30,8 @@ public class AccountController {
         return ResponseEntity.ok().body(responseDTO);
     }
 
+    @Operation(summary = "Find account by id", description = "Finds a account by a valid id")
+    @ApiResponse(responseCode = "200", description = "success")
     @GetMapping(value = "/{accountId}")
     public ResponseEntity<AccountResponseDTO> findById(@PathVariable Integer accountId) {
         Account account = accountService.findById(accountId);

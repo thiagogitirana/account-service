@@ -5,6 +5,8 @@ import com.pismo.service.account.application.dto.TransactionRequestDTO;
 import com.pismo.service.account.application.dto.TransactionResponseDTO;
 import com.pismo.service.account.domain.entities.Transaction;
 import com.pismo.service.account.domain.service.TransactionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
+    @Operation(summary = "Create transaction", description = "Creates a new transaction")
+    @ApiResponse(responseCode = "200", description = "success")
     @PostMapping
     public ResponseEntity<TransactionResponseDTO> save(@RequestBody TransactionRequestDTO transactionRequestDTO) {
         Transaction transaction = transactionAdapter.toDomain(transactionRequestDTO);
