@@ -32,4 +32,14 @@ public class AccountRepositoryImpl implements AccountRepository {
         return accountJPA.map(jpa -> accountAdapter.toDomain(jpa)).orElse(null);
 
     }
+
+    @Override
+    public boolean existsByDocumentNumber(String documentNumber) {
+        return accountRepositoryJPA.existsByDocumentNumber(documentNumber);
+    }
+
+    @Override
+    public boolean existsByAccountId(Integer accountId) {
+        return accountRepositoryJPA.existsById(accountId);
+    }
 }

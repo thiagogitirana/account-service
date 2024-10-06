@@ -17,4 +17,14 @@ public enum OperationType {
         this.operationTypeId = operationTypeId;
         this.description = description;
     }
+
+    public static OperationType fromOperationTypeId(Integer operationTypeId) {
+        for (OperationType operation : OperationType.values()) {
+            if (operation.getOperationTypeId().equals(operationTypeId)) {
+                return operation;
+            }
+        }
+        throw new IllegalArgumentException("Invalid operationTypeId: " + operationTypeId);
+    }
+
 }

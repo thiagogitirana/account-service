@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountRepositoryJPA extends CrudRepository<AccountJPA, Integer> {
+
+    boolean existsByDocumentNumber(String documentNumber);
 }

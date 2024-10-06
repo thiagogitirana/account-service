@@ -7,10 +7,13 @@ public record TransactionRequestDTO(
 ) {
     public TransactionRequestDTO {
         if (accountId == null) {
-            throw new IllegalArgumentException("a account id is required");
+            throw new IllegalArgumentException("account id is required");
         }
         if (operationTypeId == null) {
-            throw new IllegalArgumentException("a account id is required");
+            throw new IllegalArgumentException("operation type id is required");
+        }
+        if (amount == null) {
+            throw new IllegalArgumentException("amount is required");
         }
     }
 }
