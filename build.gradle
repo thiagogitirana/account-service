@@ -1,5 +1,6 @@
 plugins {
 	id 'java'
+	id 'jacoco'
 	id 'org.springframework.boot' version '3.3.4'
 	id 'io.spring.dependency-management' version '1.1.6'
 	id 'org.flywaydb.flyway' version '10.18.2'
@@ -44,6 +45,47 @@ configurations {
 	}
 }
 
+jacoco {
+	toolVersion = "0.8.12" // Use a última versão disponível
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = true
+		html.required = true
+		csv.required = false
+	}
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.9
+			}
+		}
+
+		rule {
+			enabled = true
+			element = 'CLASS'
+			includes = ['org.gradle.*']
+
+			limit {
+				counter = 'LINE'
+				value = 'TOTALCOUNT'
+				maximum = 0.9
+			}
+		}
+	}
+}
+
+tasks.named('check') {
+	dependsOn jacocoTestCoverageVerification
+}
+
+
 tasks.named('test') {
+	finalizedBy jacocoTestReport
 	useJUnitPlatform()
 }
