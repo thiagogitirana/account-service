@@ -14,6 +14,7 @@ public class AccountAdapter {
         AccountJPA accountJPA = new AccountJPA();
         accountJPA.setAccountId(account.getAccountId());
         accountJPA.setDocumentNumber(account.getDocumentNumber());
+        accountJPA.setLimit(account.getLimit());
         return accountJPA;
     }
 
@@ -21,6 +22,7 @@ public class AccountAdapter {
         Account account = new Account();
         account.setAccountId(accountJPA.getAccountId());
         account.setDocumentNumber(accountJPA.getDocumentNumber());
+        account.setLimit(accountJPA.getLimit());
         account.setTransactions(transactions);
 
         return account;

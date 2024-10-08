@@ -27,6 +27,9 @@ public class AccountJPA implements Serializable {
     @OneToMany(mappedBy = "account")
     private List<TransactionJPA> transactions;
 
+    @Column(name = "LIMITE", nullable = false)
+    private Double limit;
+
     @Column(name = "CREATED_AT")
     @CreationTimestamp
     private LocalDateTime createdAt;

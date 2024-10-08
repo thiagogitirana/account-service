@@ -12,5 +12,6 @@ import java.util.List;
 public class Account {
     private Integer accountId;
     private String documentNumber;
+    private Double limit;
     private List<Transaction> transactions;
 }

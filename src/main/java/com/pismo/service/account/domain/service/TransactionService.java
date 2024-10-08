@@ -3,6 +3,7 @@ package com.pismo.service.account.domain.service;
 import com.pismo.service.account.application.controller.TransactionController;
 import com.pismo.service.account.domain.entities.Transaction;
 import com.pismo.service.account.domain.entities.enums.OperationType;
+import com.pismo.service.account.domain.repository.AccountRepository;
 import com.pismo.service.account.domain.repository.TransactionRepository;
 import com.pismo.service.account.domain.validators.TransactionValidator;
 import org.slf4j.Logger;

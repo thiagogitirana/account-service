@@ -18,6 +18,7 @@ public class AccountAdapter {
     public Account toDomain(AccountRequestDTO accountRequestDTO) {
         Account account = new Account();
         account.setDocumentNumber(accountRequestDTO.documentNumber());
+        account.setLimit(accountRequestDTO.limit());
         return account;
     }
 

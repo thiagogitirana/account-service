@@ -8,6 +8,7 @@ public class AccountBuilder {
         Account account = new Account();
         account.setAccountId(1);
         account.setDocumentNumber("123456789");
+        account.setLimit(0.0);
         return account;
     }
 
@@ -15,6 +16,7 @@ public class AccountBuilder {
         AccountJPA accountJPA = new AccountJPA();
         accountJPA.setAccountId(1);
         accountJPA.setDocumentNumber("123456789");
+        accountJPA.setLimit(0.0);
         return accountJPA;
     }
 }

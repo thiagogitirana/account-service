@@ -31,6 +31,10 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 
     @Override
     public Double balance(Integer accountId) {
-        return transactionRepositoryJPA.balance(accountId);
+        Double balance = transactionRepositoryJPA.balance(accountId);
+        if(balance == null){
+            balance = 0.0;
+        }
+        return balance;
     }
 }
