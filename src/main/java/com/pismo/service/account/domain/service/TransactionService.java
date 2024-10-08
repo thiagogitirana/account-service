@@ -26,6 +26,10 @@ public class TransactionService {
         return transactionRepository.create(amountByType(transaction));
     }
 
+    public Double balance(Integer accountId){
+        return transactionRepository.balance(accountId);
+    }
+
     private Transaction amountByType(Transaction transaction) {
         if (OperationType.PAYMENT.equals(transaction.getOperationType())) {
             transaction.setAmount(transaction.getAmount() < 0 ? Math.abs(transaction.getAmount()) : transaction.getAmount());

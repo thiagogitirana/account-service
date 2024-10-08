@@ -2,7 +2,6 @@ package com.pismo.service.account.infrastructure.repository.impl;
 
 import com.pismo.service.account.domain.entities.Transaction;
 import com.pismo.service.account.domain.repository.TransactionRepository;
-import com.pismo.service.account.domain.service.TransactionService;
 import com.pismo.service.account.infrastructure.repository.TransactionRepositoryJPA;
 import com.pismo.service.account.infrastructure.repository.adapters.TransactionAdapter;
 import com.pismo.service.account.infrastructure.repository.model.TransactionJPA;
@@ -28,5 +27,10 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         TransactionJPA saved = transactionRepositoryJPA.save(transactionJPA);
         logger.info("Transaction saved: {}", saved);
         return transactionAdapter.toDomain(saved);
+    }
+
+    @Override
+    public Double balance(Integer accountId) {
+        return transactionRepositoryJPA.balance(accountId);
     }
 }

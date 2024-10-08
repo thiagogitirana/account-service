@@ -15,6 +15,6 @@ public class OperationTypeAdapter {
     }
 
     public OperationType toDomain(OperationTypeJPA operationTypeJPA) {
-        return OperationType.valueOf(operationTypeJPA.getDescription());
+        return OperationType.fromDescription(operationTypeJPA.getDescription());
     }
 }

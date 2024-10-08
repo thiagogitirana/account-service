@@ -27,4 +27,13 @@ public enum OperationType {
         throw new IllegalArgumentException("Invalid operationTypeId: " + operationTypeId);
     }
 
+    public static OperationType fromDescription(String description) {
+        for (OperationType operation : OperationType.values()) {
+            if (operation.getDescription().equals(description)) {
+                return operation;
+            }
+        }
+        throw new IllegalArgumentException("Invalid description: " + description);
+    }
+
 }
