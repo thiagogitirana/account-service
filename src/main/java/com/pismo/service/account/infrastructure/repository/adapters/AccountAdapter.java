@@ -1,8 +1,11 @@
 package com.pismo.service.account.infrastructure.repository.adapters;
 
 import com.pismo.service.account.domain.entities.Account;
+import com.pismo.service.account.domain.entities.Transaction;
 import com.pismo.service.account.infrastructure.repository.model.AccountJPA;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class AccountAdapter {
@@ -14,11 +17,13 @@ public class AccountAdapter {
         return accountJPA;
     }
 
-    public Account toDomain(AccountJPA accountJPA) {
-        return new Account(
-                accountJPA.getAccountId(),
-                accountJPA.getDocumentNumber()
-        );
+    public Account toDomain(AccountJPA accountJPA, List<Transaction> transactions) {
+        Account account = new Account();
+        account.setAccountId(accountJPA.getAccountId());
+        account.setDocumentNumber(accountJPA.getDocumentNumber());
+        account.setTransactions(transactions);
+
+        return account;
     }
 
 }

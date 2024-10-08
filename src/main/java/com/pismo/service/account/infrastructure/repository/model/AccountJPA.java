@@ -24,7 +24,7 @@ public class AccountJPA implements Serializable {
     @Column(name = "DOCUMENT_NUMBER", nullable = false)
     private String documentNumber;
 
-    @OneToMany(mappedBy = "account", cascade = ALL, fetch = LAZY)
+    @OneToMany(mappedBy = "account")
     private List<TransactionJPA> transactions;
 
     @Column(name = "CREATED_AT")

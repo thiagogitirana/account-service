@@ -25,7 +25,7 @@ public class TransactionAdapter {
     public Transaction toDomain(TransactionJPA transactionJPA){
         Transaction transaction = new Transaction();
         transaction.setTransactionId(transactionJPA.getTransactionId());
-        transaction.setAccount(accountAdapter.toDomain(transactionJPA.getAccount()));
+        transaction.setAccount(accountAdapter.toDomain(transactionJPA.getAccount(), null));
         transaction.setOperationType(operationTypeAdapter.toDomain(transactionJPA.getOperationType()));
         transaction.setAmount(transactionJPA.getAmount());
 

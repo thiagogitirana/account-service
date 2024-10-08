@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Collections;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,11 +43,11 @@ public class AccountControllerTest {
         Account account = AccountBuilder.buildDeafultAccount();
         Account savedAccount = AccountBuilder.buildDeafultAccount();
 
-        AccountResponseDTO accountResponseDTO = new AccountResponseDTO(1, "123456789");
+        AccountResponseDTO accountResponseDTO = new AccountResponseDTO(1, "123456789", null);
 
         when(accountAdapter.toDomain(accountRequestDTO)).thenReturn(account);
         when(accountService.save(account)).thenReturn(savedAccount);
-        when(accountAdapter.toResponseDTO(savedAccount)).thenReturn(accountResponseDTO);
+        when(accountAdapter.toResponseDTO(savedAccount, null)).thenReturn(accountResponseDTO);
 
         ResponseEntity<AccountResponseDTO> response = accountController.save(accountRequestDTO);
 
@@ -57,7 +58,7 @@ public class AccountControllerTest {
 
         verify(accountAdapter, times(1)).toDomain(accountRequestDTO);
         verify(accountService, times(1)).save(account);
-        verify(accountAdapter, times(1)).toResponseDTO(savedAccount);
+        verify(accountAdapter, times(1)).toResponseDTO(savedAccount, null);
     }
 
     @Test
@@ -65,10 +66,10 @@ public class AccountControllerTest {
 
         Account account = AccountBuilder.buildDeafultAccount();
 
-        AccountResponseDTO accountResponseDTO = new AccountResponseDTO(1, "987654321");
+        AccountResponseDTO accountResponseDTO = new AccountResponseDTO(1, "987654321", null);
 
         when(accountService.findById(1)).thenReturn(account);
-        when(accountAdapter.toResponseDTO(account)).thenReturn(accountResponseDTO);
+        when(accountAdapter.toResponseDTO(account, null)).thenReturn(accountResponseDTO);
 
         ResponseEntity<AccountResponseDTO> response = accountController.findById(1);
 
@@ -78,6 +79,6 @@ public class AccountControllerTest {
         assertEquals("987654321", response.getBody().documentNumber());
 
         verify(accountService, times(1)).findById(1);
-        verify(accountAdapter, times(1)).toResponseDTO(account);
+        verify(accountAdapter, times(1)).toResponseDTO(account, null);
     }
 }

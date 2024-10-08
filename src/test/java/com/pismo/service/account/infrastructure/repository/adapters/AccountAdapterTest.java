@@ -6,6 +6,8 @@ import com.pismo.service.account.utils.AccountBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AccountAdapterTest {
@@ -34,7 +36,7 @@ public class AccountAdapterTest {
 
         AccountJPA accountJPA = AccountBuilder.buildDeafultAccountJPA();
 
-        Account account = accountAdapter.toDomain(accountJPA);
+        Account account = accountAdapter.toDomain(accountJPA, Collections.emptyList());
 
         assertNotNull(account);
         assertEquals(1, account.getAccountId());

@@ -15,6 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -64,7 +66,7 @@ public class TransactionAdapterTest {
         OperationTypeJPA operationTypeJPA = OperationTypeBuilder.buildDefaultOperationTypeJpa();
         Account account = AccountBuilder.buildDeafultAccount();
 
-        when(accountAdapter.toDomain(accountJPA)).thenReturn(account);
+        when(accountAdapter.toDomain(accountJPA, null)).thenReturn(account);
         when(operationTypeAdapter.toDomain(operationTypeJPA)).thenReturn(OperationType.PAYMENT);
 
         Transaction transaction = transactionAdapter.toDomain(transactionJPA);
@@ -75,7 +77,7 @@ public class TransactionAdapterTest {
         assertEquals(account, transaction.getAccount());
         assertEquals(OperationType.PAYMENT, transaction.getOperationType());
 
-        verify(accountAdapter, times(1)).toDomain(accountJPA);
+        verify(accountAdapter, times(1)).toDomain(accountJPA, null);
         verify(operationTypeAdapter, times(1)).toDomain(operationTypeJPA);
     }
 }

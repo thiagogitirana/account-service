@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,7 +41,7 @@ public class AccountRepositoryImplTest {
 
         when(accountAdapter.toJPA(account)).thenReturn(accountJPA);
         when(accountRepositoryJPA.save(accountJPA)).thenReturn(accountJPA);
-        when(accountAdapter.toDomain(accountJPA)).thenReturn(account);
+        when(accountAdapter.toDomain(accountJPA, null)).thenReturn(account);
 
         Account savedAccount = accountRepositoryImpl.save(account);
 
@@ -50,7 +51,7 @@ public class AccountRepositoryImplTest {
 
         verify(accountAdapter, times(1)).toJPA(account);
         verify(accountRepositoryJPA, times(1)).save(accountJPA);
-        verify(accountAdapter, times(1)).toDomain(accountJPA);
+        verify(accountAdapter, times(1)).toDomain(accountJPA, null);
     }
 
     @Test
@@ -62,7 +63,7 @@ public class AccountRepositoryImplTest {
         Account account = AccountBuilder.buildDeafultAccount();
 
         when(accountRepositoryJPA.findById(accountId)).thenReturn(Optional.of(accountJPA));
-        when(accountAdapter.toDomain(accountJPA)).thenReturn(account);
+        when(accountAdapter.toDomain(accountJPA, null)).thenReturn(account);
 
         Account foundAccount = accountRepositoryImpl.findByAccountId(accountId);
 
@@ -71,7 +72,7 @@ public class AccountRepositoryImplTest {
         assertEquals("123456789", foundAccount.getDocumentNumber());
 
         verify(accountRepositoryJPA, times(1)).findById(accountId);
-        verify(accountAdapter, times(1)).toDomain(accountJPA);
+        verify(accountAdapter, times(1)).toDomain(accountJPA, null);
     }
 
     @Test
@@ -86,7 +87,7 @@ public class AccountRepositoryImplTest {
         assertNull(foundAccount);
 
         verify(accountRepositoryJPA, times(1)).findById(accountId);
-        verify(accountAdapter, never()).toDomain(any());
+        verify(accountAdapter, never()).toDomain(any(), anyList());
     }
 
     @Test

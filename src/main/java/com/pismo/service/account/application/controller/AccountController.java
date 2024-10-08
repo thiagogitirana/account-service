@@ -1,8 +1,10 @@
 package com.pismo.service.account.application.controller;
 
 import com.pismo.service.account.application.adapters.AccountAdapter;
+import com.pismo.service.account.application.adapters.TransactionAdapter;
 import com.pismo.service.account.application.dto.AccountRequestDTO;
 import com.pismo.service.account.application.dto.AccountResponseDTO;
+import com.pismo.service.account.application.dto.TransactionResponseDTO;
 import com.pismo.service.account.domain.entities.Account;
 import com.pismo.service.account.domain.service.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/accounts")
 public class AccountController {
@@ -23,6 +27,8 @@ public class AccountController {
     private AccountService accountService;
     @Autowired
     private AccountAdapter accountAdapter;
+    @Autowired
+    private TransactionAdapter transactionAdapter;
 
     private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
@@ -33,7 +39,8 @@ public class AccountController {
         logger.info("initiating save account: {}", accountDTO);
         Account account = accountAdapter.toDomain(accountDTO);
         Account accountResponse = accountService.save(account);
-        AccountResponseDTO responseDTO = accountAdapter.toResponseDTO(accountResponse);
+        List<TransactionResponseDTO> transactions = accountResponse.getTransactions() != null? accountResponse.getTransactions().stream().map(transactionAdapter::toResponseDto).toList(): null;
+        AccountResponseDTO responseDTO = accountAdapter.toResponseDTO(accountResponse, transactions);
         return ResponseEntity.ok().body(responseDTO);
     }
 
@@ -43,7 +50,8 @@ public class AccountController {
     public ResponseEntity<AccountResponseDTO> findById(@PathVariable Integer accountId) {
         logger.info("initiating search for account by id");
         Account account = accountService.findById(accountId);
-        AccountResponseDTO responseDTO = accountAdapter.toResponseDTO(account);
+        List<TransactionResponseDTO> transactions = account.getTransactions() != null? account.getTransactions().stream().map(transactionAdapter::toResponseDto).toList(): null;
+        AccountResponseDTO responseDTO = accountAdapter.toResponseDTO(account, transactions);
         return ResponseEntity.ok().body(responseDTO);
     }
 }
